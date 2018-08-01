@@ -1,0 +1,5 @@
+*.pyc
+*.h.ghc
+*.o
+example/autogen/
+example/ecu_engine_control

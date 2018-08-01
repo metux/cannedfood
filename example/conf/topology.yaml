@@ -1,0 +1,31 @@
+# defines the bus topology
+- bus: ENGINE
+  type: CANFD
+  length: 2m
+  nodes:
+  - node: ECU_ENGINE_CONTROL
+    description: primary engine control
+  - node: PEDALS
+- bus: COCKPIT
+  type: CANFD
+  length: 2m
+  nodes:
+  - node: HU_MIDDLE
+  - node: WHEEL
+  - node: LIGHTSWITCH
+  - node: BACKLIGHT
+  - node: FAN_LEFT
+  - node: FAN_RIGHT
+  - node: FAN_CENTER
+# infotainment is isolated to it's own bus,
+# only through an filtering bridge
+- bus: INFOTAINMENT
+  - node: INFOTAINMENT
+- bridge: ENGINE_COCKPIT
+  description: bridges the engine and cockpit busses
+  fitler: static-matrix-autogen
+  ports:
+  - port: 0
+    bus: COCKPIT
+  - port: 1
+    bus: INFOTAINMENT

@@ -1,0 +1,61 @@
+---
+#
+# placeholders: ${NODE_NAME} - node name
+#               ${MSG_NAME}  - message name
+#               ${CONF_DIR}  - config file directory
+sources:
+  - messages: ${CONF_DIR}/messages.yaml
+  - nodes:    ${CONF_DIR}/nodes.yaml
+  - typemap:  ${CONF_DIR}/typemap.yaml
+
+generator:
+  c.default:
+    type: C
+    settings:
+      # application specific
+      all_msg_enum_name:        'canid_value_t'
+      all_msg_enum_prefix:      'CANID_'
+      all_msg_encoder_name:     'can_encode_${MSG_NAME}'
+
+      node_msg_enum_name:       'node_${NODE_NAME}_canid_value_t'
+      node_msg_enum_symbol:     'NODE_${NODE_NAME}_CANID_${MSG_NAME}'
+      node_msg_recv_handler:    'node_${NODE_NAME}_handle_${MSG_NAME}'
+      node_can_recv_handler:    'node_${NODE_NAME}_handle_frame'
+
+      can_frame_payload_union:  '__can_payload'
+      c_attr_struct_packed:     '__attribute__((__packed__))'
+
+      # linux specific
+      can_frame_field_canid:    'can_id'
+      can_frame_field_dlc:      'dlc'
+      can_frame_field_data:     'data'
+
+      output_dir:               'example/autogen'
+
+    output:
+      msgid_h:
+        guard:        __CAN_MESSAGES_H__
+        file:         include/can_messages.h
+      node_msgid_h:
+        guard:        __CAN_MESSAGES_NODE_${NODE_NAME}_H__
+        file:         include/nodes/${NODE_NAME}/can_messages.h
+      payload_h:
+        guard:        __CAN_PAYLOAD_H__
+        file:         include/can_payload.h
+        union_name:   __can_payload
+      recv_demux_c:
+        file:         src/nodes/${NODE_NAME}/recv_demux.c
+        includes:
+          - '<nodes/${NODE_NAME}/recv_demux.h>'
+          - '<can_messages.h>'
+          - '<can_payload.h>'
+      recv_demux_h:
+        guard:        __CAN_RECV_DEMUX_NODE_${NODE_NAME}_H__
+        file:         include/nodes/${NODE_NAME}/recv_demux.h
+      msg_encode_h:
+        guard:        __CAN_MSG_ENCODE_H
+        file:         include/can_encode.h
+        includes:
+          - '<can_payload.h>'
+          - '<can_messages.h>'
+          - '<string.h>'

@@ -1,0 +1,59 @@
+
+## this file specifies message formats
+---
+- message:  ENGINE_UPM
+  id:       12
+  priority: 10
+  payload:
+    - name: upm
+      type: uint8
+    - name: level
+      type: uint8
+    - name: one
+      type: bool
+- message:  ENGINE_OIL_TEMP
+  id:       11
+  priority: 15
+  payload:
+    - name:   engine_oil_temp
+      type:   uint16
+      unit:   kelvin
+      scale:  0.01
+      offset: 100
+- message:  ENGINE_VALVE_HEALTH
+  id:       19
+  priority: 15
+  padding:  skip-zero              # trailing zero fields may be skipped
+  payload:
+    - name:   valve0
+      type:   uint8
+    - name:   valve1
+      type:   uint8
+    - name:   valve2
+      type:   uint8
+    - name:   valve3
+      type:   uint8
+    - name:   valve4
+      type:   uint8
+    - name:   valve5
+      type:   uint8
+    - name:   valve6
+      type:   uint8
+    - name:   valve7
+      type:   uint8
+- message: ENGINE_START
+  id: 14
+  priority: 13
+- message: ENGINE_STOP
+  id: 15
+- message: ENGINE_CONSUMPTION
+  id: 16
+  payload:
+    - name:   ml_per_sec
+      type:   uint16
+    - name:   ml_per_km
+      type:   uint16
+- message: ENGINE_SLEEP
+  id: 17
+- message: ENGINE_KICKDOWN
+  id: 18

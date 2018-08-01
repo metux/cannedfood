@@ -1,0 +1,43 @@
+## generators: typemap for POSIX targets
+---
+C.payload.uint8:
+    C.type:     uint8_t
+    C.include:  <inttypes.h>
+
+C.payload.uint16:
+    C.type:     uint16_t
+    C.include:  <inttypes.h>
+
+C.payload.int8:
+    C.type:     int8_t
+    C.include:  <inttypes.h>
+
+C.payload.int16:
+    C.type:     int16_t
+    C.include:  <inttypes.h>
+
+C.payload.bool:
+    C.type:     uint8_t
+    C.include:  <inttypes.h>
+
+C.msg_handler.context:
+    C.type:     void*
+
+C.msg_handler.retval:
+    C.type:            int
+    C.include:         <errno.h>
+    C.value.unhandled: -ENOENT
+    C.value.okay:      0
+
+C.os.can_frame_struct:
+    C.type:     struct can_frame
+    C.include:  <linux/can.h>
+
+C.os.can_frame_payload:
+    C.type:     __u8
+    C.include:  <linux/can.h>
+    C.elements: 8
+
+C.os.can_id:
+    C.type:     canid_t
+    C.include:  <linux/can.h>

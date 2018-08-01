@@ -1,0 +1,33 @@
+## list all the network nodes and their supported messages
+---
+- node: ECU_ENGINE_CONTROL
+  send:
+  - ENGINE_UPM
+  - ENGINE_OIL_TEMP
+  - ENGINE_VALVE_HEALTH
+  - ENGINE_CONSUMPTION
+  receive:
+  - ENGINE_START
+  - ENGINE_STOP
+  - ENGINE_SLEEP
+  - ENGINE_KICKDOWN
+- node: HU_MIDDLE
+  send:
+  receive:
+  - ENGINE_UPM
+  - ENGINE_OIL_TEMP
+  - ENGINE_VALVE_HEALTH
+  - ENGINE_CONSUMPTION
+- node: PEDALS
+  send:
+  - ENGINE_START
+  - ENGINE_STOP
+  - ENGINE_KICKDOWN
+- node: INFOTAINMENT
+  send:
+  - ENGINE_SLEEP
+  receive:
+  - ENGINE_UPM
+  - ENGINE_OIL_TEMP
+  - ENGINE_VALVE_HEALTH
+  - ENGINE_CONSUMPTION

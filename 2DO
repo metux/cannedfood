@@ -1,0 +1,13 @@
+
+Spec:
+    * write a proper spec for the CanSpec yaml formats
+    * add message attribute: single-sender-bus / single-sender-global
+        --> forbid multiple senders of the same message 
+        --> either bus-local or globally
+    * check for message and node names are valid identifiers
+    * check whether messages fit into can payload (8 bytes)
+
+Generator:
+    * generate C structs and pack/unpack functions
+      --> fix endianess
+    * netfilter modules --> generate bpf code
